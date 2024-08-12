@@ -42,7 +42,8 @@
 
 <Modal message="my first svelte prop" isPromo={true} showModal={showModal} on:click={toggleModal} />
 <main>
-	<button on:click={toggleModal}>Open Modal</button>
+	<!-- once removes it after the first time run -->
+	<button on:click|once={toggleModal}>Open Modal</button>
 	<h1>Hello {name}!</h1>
 	<p>Welcome to my domain</p>
 	<p style="font-size: {age}px">You are {age} years old</p>

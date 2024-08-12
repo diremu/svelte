@@ -9,7 +9,7 @@
 {#if showModal}
 <!-- this will assign a promo class if what is in the curly braces evaluates to true -->
  <!-- this is called event forwarding -->
-    <div class="backdrop" class:promo={isPromo} on:click>
+    <div class="backdrop" class:promo={isPromo} on:click|self><!--this will apply the onclick event handler only when the div itself is clicked-->
         <div class="modal">
             <p>{message}</p>
         </div>
