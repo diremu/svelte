@@ -1,6 +1,5 @@
 <script>
     //for variables that get their values from outside, you export them first
-    export let message = 'Im the default value';
     export let showModal = false
     export let isPromo = false
 </script>
@@ -11,7 +10,10 @@
  <!-- this is called event forwarding -->
     <div class="backdrop" class:promo={isPromo} on:click|self><!--this will apply the onclick event handler only when the div itself is clicked-->
         <div class="modal">
-            <p>{message}</p>
+            <!-- to receive information like this, you have to use the slot tags -->
+             <slot></slot>
+             <!-- for names slots you can pass the name through the caller component e.g app.svelte -->
+              <!-- <slot name="title"></slot> -->
         </div>
     </div>
 {/if}

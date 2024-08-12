@@ -40,19 +40,21 @@
 	<p>not greater than 5</p>
 {/if} -->
 
-<Modal message="my first svelte prop" isPromo={true} showModal={showModal} on:click={toggleModal} />
+<!-- you can use showModal directly if it is the same name in the modal folder -->
+<Modal {showModal} on:click={toggleModal}> 
+	<h3>Add a new person</h3>
+	<form>
+		<input type="text" placeholder="name"/>
+		<input type="text" placeholder="belt colour"/>
+		<button>Add person</button>
+	</form>
+	<!-- <div slot="title">
+		<h3>Add a person</h3>
+	</div> -->
+</Modal>	
 <main>
 	<!-- once removes it after the first time run -->
 	<button on:click|once={toggleModal}>Open Modal</button>
-	<h1>Hello {name}!</h1>
-	<p>Welcome to my domain</p>
-	<p style="font-size: {age}px">You are {age} years old</p>
-	<!-- this input changes even if the age is changed from another source -->
-	<!-- <input type="number" on:change={handleInput} value={age} /> -->
-	 <input type="text" bind:value={age} />
-	 <!-- this bind keyword does the twoway binding all at once -->
-	<button on:click={handleClick}>update age</button>
-	<!-- this is to loop through a given array -->
 	{#each people as person (person.id)}
 	<div>
 		<h4>{person.name}</h4>
