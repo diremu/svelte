@@ -1,13 +1,17 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+
+    let dispatch = createEventDispatcher();
+    // this is how you create a custom event dispatcher
+
     let name;
     let beltColour, age;
-    // let fighting = false;
-    // let sneaking = false;
-    // let running = false;
     let skills = []
 
     const handleSubmit = () => {
-        console.log(name,beltColour,age, skills);
+        const person = {name,beltColour, age,skills, id: Math.random()}
+        dispatch('addPerson',person)
+        // the first argument is the name, the second is the data you sent along with it
     }
 </script>
 

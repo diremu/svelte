@@ -31,6 +31,11 @@
 		showModal = !showModal
 	}
 	let num = 15;
+	const addPerson = (e) => {
+		// console.log(e.detail)
+		const person = e.detail
+		people = [person, ...people]
+	}
 </script>
 
 <!-- {#if num > 20}
@@ -43,7 +48,7 @@
 
 <!-- you can use showModal directly if it is the same name in the modal folder -->
 <Modal {showModal} on:click={toggleModal}> 
-	<AddPersonForm />
+	<AddPersonForm on:addPerson={addPerson} />
 	<!-- <div slot="title">
 		<h3>Add a person</h3>
 	</div> -->
