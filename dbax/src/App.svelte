@@ -1,5 +1,6 @@
 <script>
 	import Modal from'./Modal.svelte'
+	import AddPersonForm from './addPersonForm.svelte';
 	let name = 'dbax';
 	let age =18;
 
@@ -42,12 +43,7 @@
 
 <!-- you can use showModal directly if it is the same name in the modal folder -->
 <Modal {showModal} on:click={toggleModal}> 
-	<h3>Add a new person</h3>
-	<form>
-		<input type="text" placeholder="name"/>
-		<input type="text" placeholder="belt colour"/>
-		<button>Add person</button>
-	</form>
+	<AddPersonForm />
 	<!-- <div slot="title">
 		<h3>Add a person</h3>
 	</div> -->
