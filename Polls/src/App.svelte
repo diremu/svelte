@@ -3,8 +3,8 @@
 	import Footer from './components/Footer.svelte'
 </script>
 
+<Header />
 <main>
-	<!-- <Header /> -->
 	<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa voluptatem velit praesentium itaque. Sunt accusamus asperiores consequatur praesentium aliquam et accusantium, nihil fugit, veniam optio, laboriosam atque reprehenderit rem repellendus.</p>
 </main>
 <Footer />
