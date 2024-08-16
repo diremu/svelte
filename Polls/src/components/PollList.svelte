@@ -6,7 +6,8 @@
 <div class="poll-list">
     {#each polls as poll (poll.id)}
         <div>
-            <PollDetails {poll} />
+            <!-- this forwards the event to the parent element -->
+            <PollDetails {poll} on:vote />
         </div>
     {/each}
 </div>

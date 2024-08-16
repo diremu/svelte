@@ -18,8 +18,8 @@
 			answerA: 'Python',
 			answerB: 'Javascript',
 			votesA: 10,
-			votesB:15
-		}
+			votesB:15,
+		},
 	]
 
 	const pollAdder = (e) => {
@@ -28,6 +28,20 @@
 		//to switch back to current polls after adding a new poll
 		activeItem = items[0]
 	}
+
+	const handleVote = (e) => {
+		const {answer, id} = e.detail;
+		let copiedPolls = [...polls]
+		// this is to find the upvoted poll
+		let upvotedPoll = copiedPolls.find(poll => poll.id === id)
+		if (answer === 'a') {
+			upvotedPoll.votesA++
+		} 
+		if (answer === 'b') {
+			upvotedPoll.votesB++
+		}
+		polls = copiedPolls;
+	}
 </script>
 
 <Header />
@@ -35,7 +49,7 @@
 	<Tabs {items} {activeItem} on:tabChange={tabChanger}/>
 	{#if activeItem===items[0]}
 		<div class="currentpolls">
-			<PollList {polls} />
+			<PollList {polls} on:vote={handleVote} />
 		</div>
 	{:else}
 		<div class="addpoll"><CreatePollForm on:add={pollAdder} /></div>
