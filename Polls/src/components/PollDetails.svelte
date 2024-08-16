@@ -6,6 +6,8 @@
     const dispatch = createEventDispatcher();
     //reactive value
     $: totalVotes = poll.votesA + poll.votesB;
+    $: percentA = Math.floor(100 / totalVotes * poll.votesA);
+    $: percentB = Math.floor(100 / totalVotes * poll.votesB);
 
     const handleVote = (answer, id) => {
         dispatch('vote', {answer, id})
@@ -18,14 +20,17 @@
             {poll.question}
         </h3>
         <p>Total Votes: {totalVotes}</p>
-        <div class="answer">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="answer" on:click={() => handleVote('a',poll.id)}>
             <!-- to show the percentage of votes for the current answer -->
-            <div class="percent percent-a"></div>
-            <span on:click={() => handleVote('a',poll.id)}>{poll.answerA} ({poll.votesA})</span>
+            <div class="percent percent-a" style="width: {percentA}%"></div>
+            <!-- dynamically styles based on current value -->
+            <span >{poll.answerA} ({poll.votesA})</span>
         </div>
-        <div class="answer">
-            <div class="percent percent-b"></div>
-            <span on:click={() => handleVote('b',poll.id)}>{poll.answerB} ({poll.votesB})</span>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="answer" on:click={() => handleVote('b',poll.id)}>
+            <div class="percent percent-b" style="width: {percentB}%"></div>
+            <span >{poll.answerB} ({poll.votesB})</span>
         </div>
     </div>
 </Card>
@@ -53,5 +58,18 @@
     span {
         display: inline-block;
         padding: 10px 20px;
+    }
+    .percent {
+        height: 100%;
+        position: absolute;
+        box-sizing: border-box;
+    }
+    .percent-a {
+        background: rgba(217,27,66,0.2);
+        border-left: 4px solid #d91b42;
+    }
+    .percent-b {
+        background: rgba(69, 196, 150, 0.2);
+        border-left: 4px solid #45c496;
     }
 </style>
