@@ -1,4 +1,6 @@
 <script>
+    import { fade, slide, scale} from "svelte/transition"
+    import { flip } from "svelte/animate"
     import PollStore from "../stores/PollStore.js";
     import PollDetails from "./PollDetails.svelte";
     // import { onMount, onDestroy } from 'svelte';
@@ -26,7 +28,9 @@
 -->
 <div class="poll-list">
     {#each $PollStore as poll (poll.id)}
-        <div>
+    <!-- //transition:fade -->
+     <!-- |local occurs when an individual one is affected or deleted -->
+        <div in:fade out:scale|local animate:flip={{duration: 550}}>
             <!-- this forwards the event to the parent element -->
             <PollDetails {poll} />
         </div>
