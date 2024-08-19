@@ -4,7 +4,7 @@
     export let inverse = false;
 </script>
 <!-- this will add a class of flat if flat evals to true -->
-<button class={type} class:flat={flat} class:inverse={inverse}>
+<button class={type} class:flat={flat} class:inverse={inverse} on:click>
     <!-- slot is to pass data into a component -->
     <slot></slot>
 </button>
