@@ -11,16 +11,16 @@
 	const tabChanger = (e) => {
 		activeItem = e.detail;
 	}
-	let polls = [
-		{
-			id: 1,
-			question: 'Python or Javascript',
-			answerA: 'Python',
-			answerB: 'Javascript',
-			votesA: 10,
-			votesB:15,
-		},
-	]
+	// let polls = [
+	// 	{
+	// 		id: 1,
+	// 		question: 'Python or Javascript',
+	// 		answerA: 'Python',
+	// 		answerB: 'Javascript',
+	// 		votesA: 10,
+	// 		votesB:15,
+	// 	},
+	// ]
 
 	const pollAdder = (e) => {
 		polls = [...polls, e.detail]
@@ -49,7 +49,7 @@
 	<Tabs {items} {activeItem} on:tabChange={tabChanger}/>
 	{#if activeItem===items[0]}
 		<div class="currentpolls">
-			<PollList {polls} on:vote={handleVote} />
+			<PollList on:vote={handleVote} />
 		</div>
 	{:else}
 		<div class="addpoll"><CreatePollForm on:add={pollAdder} /></div>
