@@ -1,75 +1,86 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-    import Card from '../shared/Card.svelte';
-    export let poll;
+  import Card from "../shared/Card.svelte";
+  import PollStore from "../stores/PollStore";
+  export let poll;
 
-    const dispatch = createEventDispatcher();
-    //reactive value
-    $: totalVotes = poll.votesA + poll.votesB;
-    $: percentA = Math.floor(100 / totalVotes * poll.votesA);
-    $: percentB = Math.floor(100 / totalVotes * poll.votesB);
+//   const dispatch = createEventDispatcher();
+  //reactive value
+  $: totalVotes = poll.votesA + poll.votesB;
+  $: percentA = Math.floor((100 / totalVotes) * poll.votesA);
+  $: percentB = Math.floor((100 / totalVotes) * poll.votesB);
 
-    const handleVote = (answer, id) => {
-        dispatch('vote', {answer, id})
-    }
+  const handleVote = (answer, id) => {
+    PollStore.update((currentPolls) => {
+      let copiedPolls = [...currentPolls];
+      // this is to find the upvoted poll
+      let upvotedPoll = copiedPolls.find((poll) => poll.id === id);
+      if (answer === "a") {
+        upvotedPoll.votesA++;
+      }
+      if (answer === "b") {
+        upvotedPoll.votesB++;
+      }
+       return copiedPolls;
+    });
+  };
 </script>
 
 <Card>
-    <div class="poll">
-        <h3>
-            {poll.question}
-        </h3>
-        <p>Total Votes: {totalVotes}</p>
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="answer" on:click={() => handleVote('a',poll.id)}>
-            <!-- to show the percentage of votes for the current answer -->
-            <div class="percent percent-a" style="width: {percentA}%"></div>
-            <!-- dynamically styles based on current value -->
-            <span >{poll.answerA} ({poll.votesA})</span>
-        </div>
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="answer" on:click={() => handleVote('b',poll.id)}>
-            <div class="percent percent-b" style="width: {percentB}%"></div>
-            <span >{poll.answerB} ({poll.votesB})</span>
-        </div>
+  <div class="poll">
+    <h3>
+      {poll.question}
+    </h3>
+    <p>Total Votes: {totalVotes}</p>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="answer" on:click={() => handleVote("a", poll.id)}>
+      <!-- to show the percentage of votes for the current answer -->
+      <div class="percent percent-a" style="width: {percentA}%"></div>
+      <!-- dynamically styles based on current value -->
+      <span>{poll.answerA} ({poll.votesA})</span>
     </div>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="answer" on:click={() => handleVote("b", poll.id)}>
+      <div class="percent percent-b" style="width: {percentB}%"></div>
+      <span>{poll.answerB} ({poll.votesB})</span>
+    </div>
+  </div>
 </Card>
 
 <style>
-    h3 {
-        margin: 0 auto;
-        color: #555;
-    }
-    p{
-        margin-top: 6px;
-        font-size: 14px;
-        color: #aaa;
-        margin-bottom: 30px;
-    }
-    .answer {
-        background: #fafafa;
-        cursor: pointer;
-        margin: 10px auto;
-        position: relative;
-    }
-    .answer:hover {
-        opacity: 0.6;
-    }
-    span {
-        display: inline-block;
-        padding: 10px 20px;
-    }
-    .percent {
-        height: 100%;
-        position: absolute;
-        box-sizing: border-box;
-    }
-    .percent-a {
-        background: rgba(217,27,66,0.2);
-        border-left: 4px solid #d91b42;
-    }
-    .percent-b {
-        background: rgba(69, 196, 150, 0.2);
-        border-left: 4px solid #45c496;
-    }
+  h3 {
+    margin: 0 auto;
+    color: #555;
+  }
+  p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 30px;
+  }
+  .answer {
+    background: #fafafa;
+    cursor: pointer;
+    margin: 10px auto;
+    position: relative;
+  }
+  .answer:hover {
+    opacity: 0.6;
+  }
+  span {
+    display: inline-block;
+    padding: 10px 20px;
+  }
+  .percent {
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+  }
+  .percent-a {
+    background: rgba(217, 27, 66, 0.2);
+    border-left: 4px solid #d91b42;
+  }
+  .percent-b {
+    background: rgba(69, 196, 150, 0.2);
+    border-left: 4px solid #45c496;
+  }
 </style>

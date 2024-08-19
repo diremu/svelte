@@ -23,24 +23,8 @@
 	// ]
 
 	const pollAdder = (e) => {
-		polls = [...polls, e.detail]
-		console.log(polls)
 		//to switch back to current polls after adding a new poll
 		activeItem = items[0]
-	}
-
-	const handleVote = (e) => {
-		const {answer, id} = e.detail;
-		let copiedPolls = [...polls]
-		// this is to find the upvoted poll
-		let upvotedPoll = copiedPolls.find(poll => poll.id === id)
-		if (answer === 'a') {
-			upvotedPoll.votesA++
-		} 
-		if (answer === 'b') {
-			upvotedPoll.votesB++
-		}
-		polls = copiedPolls;
 	}
 </script>
 
@@ -49,7 +33,7 @@
 	<Tabs {items} {activeItem} on:tabChange={tabChanger}/>
 	{#if activeItem===items[0]}
 		<div class="currentpolls">
-			<PollList on:vote={handleVote} />
+			<PollList />
 		</div>
 	{:else}
 		<div class="addpoll"><CreatePollForm on:add={pollAdder} /></div>

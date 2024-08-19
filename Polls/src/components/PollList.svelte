@@ -28,7 +28,7 @@
     {#each $PollStore as poll (poll.id)}
         <div>
             <!-- this forwards the event to the parent element -->
-            <PollDetails {poll} on:vote />
+            <PollDetails {poll} />
         </div>
     {/each}
 </div>
